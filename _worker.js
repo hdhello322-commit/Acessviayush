@@ -26,7 +26,15 @@ export default {
     if (!pathToken) {
       return new Response("Token required. Format: /dev/<token> or /dev/credit/<token>", { status: 400 });
     }
-
+// Temporary debug endpoint
+if (url.pathname === '/debug-binding') {
+  return new Response(JSON.stringify({
+    hasLogsDB: !!env.LOGS_DB,
+    envKeys: Object.keys(env)
+  }, null, 2), {
+    headers: { "Content-Type": "application/json" }
+  });
+}
     // ── Helpers ──
     const nowMs         = Date.now();
     const istDateObj    = new Date(nowMs + 19800000);
